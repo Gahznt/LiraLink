@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: liralink_sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=@S3nhaF0rT3
+      - MSSQL_DATABASE=LiraLink
+    ports:
+      - "1433:1433"
+    # volumes:
+    #   - sqlserver_data:/var/opt/mssql
+    networks:
+      - liralink_network
+
+  liralink:
+    build:
+      context: .
+      dockerfile: LiraLink/Dockerfile
+    container_name: liralink_app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - sqlserver
+    networks:
+      - liralink_network
+
+networks:
+  liralink_network:
+    driver: bridge
+
+volumes:
+  sqlserver_data:
