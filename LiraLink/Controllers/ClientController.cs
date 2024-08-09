@@ -1,4 +1,5 @@
 ﻿using LiraLink.Services.ClientService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,9 @@ public class ClientController : ControllerBase
     {
         _clientService = clientService;
     }
+
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult> GetClients()
     {
         var service = await _clientService.GetClients();

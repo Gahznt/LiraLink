@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LiraLink.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240806154816_first-migration")]
+    [Migration("20240809141927_first-migration")]
     partial class firstmigration
     {
         /// <inheritdoc />
@@ -144,7 +144,7 @@ namespace LiraLink.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IndicatorTypesModels");
+                    b.ToTable("IndicatorTypes");
                 });
 
             modelBuilder.Entity("LiraLink.Models.IndicatorsModel", b =>
@@ -257,7 +257,36 @@ namespace LiraLink.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("ProjectsModels");
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("LiraLink.Models.UsersModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Password")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("Salt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("LiraLink.Models.ApportionmentsModel", b =>

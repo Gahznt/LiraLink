@@ -71,7 +71,7 @@ namespace LiraLink.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IndicatorTypesModels",
+                name: "IndicatorTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -80,7 +80,23 @@ namespace LiraLink.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IndicatorTypesModels", x => x.Id);
+                    table.PrimaryKey("PK_IndicatorTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Salt = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,7 +121,7 @@ namespace LiraLink.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectsModels",
+                name: "Projects",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -117,9 +133,9 @@ namespace LiraLink.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectsModels", x => x.id);
+                    table.PrimaryKey("PK_Projects", x => x.id);
                     table.ForeignKey(
-                        name: "FK_ProjectsModels_Clients_ClientId",
+                        name: "FK_Projects_Clients_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
@@ -153,9 +169,9 @@ namespace LiraLink.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Apportionments_ProjectsModels_ProjectId",
+                        name: "FK_Apportionments_Projects_ProjectId",
                         column: x => x.ProjectId,
-                        principalTable: "ProjectsModels",
+                        principalTable: "Projects",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -183,9 +199,9 @@ namespace LiraLink.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProjectCollaborators_ProjectsModels_ProjectId",
+                        name: "FK_ProjectCollaborators_Projects_ProjectId",
                         column: x => x.ProjectId,
-                        principalTable: "ProjectsModels",
+                        principalTable: "Projects",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -210,9 +226,9 @@ namespace LiraLink.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProjectIndicators_ProjectsModels_ProjectId",
+                        name: "FK_ProjectIndicators_Projects_ProjectId",
                         column: x => x.ProjectId,
-                        principalTable: "ProjectsModels",
+                        principalTable: "Projects",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -263,8 +279,8 @@ namespace LiraLink.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectsModels_ClientId",
-                table: "ProjectsModels",
+                name: "IX_Projects_ClientId",
+                table: "Projects",
                 column: "ClientId");
         }
 
@@ -275,13 +291,16 @@ namespace LiraLink.Migrations
                 name: "Apportionments");
 
             migrationBuilder.DropTable(
-                name: "IndicatorTypesModels");
+                name: "IndicatorTypes");
 
             migrationBuilder.DropTable(
                 name: "ProjectCollaborators");
 
             migrationBuilder.DropTable(
                 name: "ProjectIndicators");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Departments");
@@ -293,7 +312,7 @@ namespace LiraLink.Migrations
                 name: "Indicators");
 
             migrationBuilder.DropTable(
-                name: "ProjectsModels");
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "BondTypes");

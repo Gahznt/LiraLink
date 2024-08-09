@@ -1,14 +1,15 @@
 ﻿using LiraLink.DataContext;
 using LiraLink.Models;
+using LiraLink.Repositories.ClientRepository;
 
 namespace LiraLink.Services.ClientService;
 
 public class ClientService : IClientService
 {
-    private readonly ApplicationDbContext _context;
-    public ClientService(ApplicationDbContext context) 
+    private readonly IClientRepository _clientRepository;
+    public ClientService(IClientRepository clientRepository) 
     {
-        _context = context;
+        _clientRepository = clientRepository;
     }
     public Task<ServiceResponse<List<ClientsModel>>> CreateClient(ClientsModel client)
     {
@@ -26,7 +27,7 @@ public class ClientService : IClientService
 
         try
         {
-            serviceResponse.Data = _context.Clients.ToList();
+            serviceResponse.Data = await _clientRepository.GetClientList();
         }
         catch (Exception ex) 
         {
