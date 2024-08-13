@@ -1,4 +1,5 @@
 ﻿using LiraLink.DataContext;
+using LiraLink.DTOs;
 using LiraLink.Models;
 using LiraLink.Repositories.ClientRepository;
 
@@ -11,14 +12,28 @@ public class ClientService : IClientService
     {
         _clientRepository = clientRepository;
     }
-    public Task<ServiceResponse<List<ClientsModel>>> CreateClient(ClientsModel client)
-    {
-        throw new NotImplementedException();
-    }
 
-    public Task<ServiceResponse<ClientsModel>> GetClientById(int clientId)
+    public async Task<ServiceResponse<ClientsModel>> CreateClient(ClientDto clientDto)
     {
-        throw new NotImplementedException();
+        ServiceResponse<ClientsModel> serviceResponse = new ServiceResponse<ClientsModel>();
+        var clientExists = await _clientRepository.GetClientByName(clientDto.Name);
+
+        if(clientExists is not null)
+        {
+            serviceResponse.Message = "There is already a client with that name";
+            serviceResponse.Success = false;
+            serviceResponse.StatusCode = 400;
+
+            return serviceResponse;
+        }
+
+        var client = await _clientRepository.CreateClient(clientDto);
+
+        serviceResponse.Message = "Customer successfully registered";
+        serviceResponse.Data = client;
+        serviceResponse.StatusCode = 201;
+
+        return serviceResponse;
     }
 
     public async Task<ServiceResponse<List<ClientsModel>>> GetClients()
@@ -29,7 +44,7 @@ public class ClientService : IClientService
         {
             serviceResponse.Data = await _clientRepository.GetClientList();
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             serviceResponse.Message = ex.Message;
             serviceResponse.Success = false;
@@ -38,8 +53,52 @@ public class ClientService : IClientService
         return serviceResponse;
     }
 
-    public Task<ServiceResponse<List<ClientsModel>>> UpdateClient(ClientsModel client)
+    public async Task<ServiceResponse<ClientsModel>> GetClient(int id)
     {
-        throw new NotImplementedException();
+        ServiceResponse<ClientsModel> serviceResponse = new ServiceResponse<ClientsModel>();
+
+        try
+        {
+            var client = await _clientRepository.GetClientById(id);
+            if (client is null)
+            {
+                serviceResponse.Message = "Client not found";
+                serviceResponse.Success = false;
+                serviceResponse.StatusCode = 404;
+
+                return serviceResponse;
+            }
+            serviceResponse.Data = client;
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Message = ex.Message;
+            serviceResponse.Success = false;
+        }
+
+        return serviceResponse;
+    }
+
+    public async Task<ServiceResponse<ClientsModel>> UpdateClient(int id, ClientDto clientDto)
+    {
+        ServiceResponse<ClientsModel> serviceResponse = new ServiceResponse<ClientsModel>();
+        var clientExists = await _clientRepository.GetClientById(id);
+
+        if (clientExists is null)
+        {
+            serviceResponse.Message = "Client not found";
+            serviceResponse.Success = false;
+            serviceResponse.StatusCode = 404;
+
+            return serviceResponse;
+        }
+
+        var client = await _clientRepository.UpdateClient(clientExists, clientDto);
+
+        serviceResponse.Message = "Client updated successfully";
+        serviceResponse.Data = client;
+        serviceResponse.StatusCode = 200;
+
+        return serviceResponse;
     }
 }

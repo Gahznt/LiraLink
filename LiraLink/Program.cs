@@ -1,7 +1,10 @@
 using LiraLink.DataContext;
+using LiraLink.Repositories.ClientRepository;
+using LiraLink.Repositories.IndicatorsTypeRepository;
 using LiraLink.Repositories.UserRepository;
 using LiraLink.Services.AuthenticateService;
 using LiraLink.Services.ClientService;
+using LiraLink.Services.IndicatorsTypeService;
 using LiraLink.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +53,9 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IIndicatorsTypeRepository, IndicatorsTypeRepository>();
+builder.Services.AddScoped<IIndicatorsTypeService, IndicatorsTypeService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

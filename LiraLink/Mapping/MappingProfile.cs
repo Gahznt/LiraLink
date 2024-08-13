@@ -15,6 +15,9 @@ public class MappingProfile : Profile
 
             CreateMap<UsersModel, UserDto>()
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => Encoding.UTF8.GetString(src.Password)));
+
+            CreateMap<ClientsModel, ClientDto>();
+            CreateMap<ClientDto, ClientsModel>();
         }
     }
 }
