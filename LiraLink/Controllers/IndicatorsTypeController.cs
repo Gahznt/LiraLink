@@ -1,6 +1,5 @@
 ﻿using LiraLink.DTOs;
 using LiraLink.Models;
-using LiraLink.Services.ClientService;
 using LiraLink.Services.IndicatorsTypeService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +14,10 @@ namespace LiraLink.Controllers
         {
             _service = service;
         }
-        [HttpPost("register")]
-        public async Task<ActionResult<UserToken>> Create(IndicatorsTypeDto ITypeDto)
+        [HttpPost]
+        public async Task<ActionResult<UserToken>> Criar(TipoIndicadoreseDto ITypeDto)
         {
+            return Ok();
             //var service = await _service.Create(ITypeDto);
             //return StatusCode(service.StatusCode, service);
         }

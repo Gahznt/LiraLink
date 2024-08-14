@@ -6,10 +6,10 @@ public class LoginDto
 {
     [Required(ErrorMessage = "The field email is required")]
     [DataType(DataType.EmailAddress)]
-    public string Email { get; set; }
+    public string email { get; set; }
 
-    [Required(ErrorMessage = "Field password is required")]
+    [Required(ErrorMessage = "Field senha is required")]
     [DataType(DataType.Password)]
-    public string Password { get; set; }
+    public string senha { get; set; }
 
 }

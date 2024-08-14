@@ -10,8 +10,8 @@ services:
       - MSSQL_DATABASE=LiraLink
     ports:
       - "1433:1433"
-    # volumes:
-    #   - sqlserver_data:/var/opt/mssql
+    volumes:
+      - sqlserver_data:/var/opt/mssql
     networks:
       - liralink_network
 

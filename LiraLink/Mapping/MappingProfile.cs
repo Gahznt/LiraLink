@@ -10,14 +10,18 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         {
-            CreateMap<UserDto, UsersModel>()
-                .ForMember(dest => dest.Password, opt => opt.MapFrom(src => Encoding.UTF8.GetBytes(src.Password)));
+            CreateMap<UsuarioDto, UsariosModel>()
+                .ForMember(dest => dest.senha, opt => opt.MapFrom(src => Encoding.UTF8.GetBytes(src.senha)));
 
-            CreateMap<UsersModel, UserDto>()
-                .ForMember(dest => dest.Password, opt => opt.MapFrom(src => Encoding.UTF8.GetString(src.Password)));
+            CreateMap<UsariosModel, UsuarioDto>()
+                .ForMember(dest => dest.senha, opt => opt.MapFrom(src => Encoding.UTF8.GetString(src.senha)));
 
-            CreateMap<ClientsModel, ClientDto>();
-            CreateMap<ClientDto, ClientsModel>();
+            CreateMap<ClienteModel, ClienteDto>();
+            CreateMap<ClienteDto, ClienteModel>();
+            CreateMap<CargoModel, PositionDto>();
+            CreateMap<PositionDto, CargoModel>();
+            CreateMap<DepartamentoDto, DepartamentoModel>();
+            CreateMap<DepartamentoModel, DepartamentoDto>();
         }
     }
 }

@@ -13,26 +13,26 @@ namespace LiraLink.Services.AuthenticateService;
 public class AuthenticateService : IAuthenticateService
 {
     private readonly IConfiguration _configuration;
-    private readonly IUserRepository _UserRepository;
+    private readonly IUsuarioRepository _UserRepository;
 
-    public AuthenticateService(IUserRepository userRepository, IConfiguration configuration)
+    public AuthenticateService(IUsuarioRepository userRepository, IConfiguration configuration)
     {
         _configuration = configuration;
         _UserRepository = userRepository;
     }
     public async Task<bool> AuthenticateAsync(string email, string password)
     {
-        var user = await _UserRepository.GetUserByEmail(email);
+        var user = await _UserRepository.BuscaPorEmail(email);
         if (user == null)
         {
             return false;
         }
 
-        using var hmac = new HMACSHA512(user.Salt);
+        using var hmac = new HMACSHA512(user.salt);
         var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
         for (int x = 0; x < computedHash.Length; x++)
         {
-            if (computedHash[x] != user.Password[x]) return false;
+            if (computedHash[x] != user.senha[x]) return false;
         }
 
         return true;
@@ -64,7 +64,7 @@ public class AuthenticateService : IAuthenticateService
 
     public async Task<bool> UserExists(string email)
     {
-        var user = await _UserRepository.GetUserByEmail(email);
+        var user = await _UserRepository.BuscaPorEmail(email);
         if (user == null)
         {
             return false;

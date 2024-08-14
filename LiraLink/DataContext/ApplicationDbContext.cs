@@ -10,15 +10,16 @@ public class ApplicationDbContext : DbContext
         
     }
 
-    public DbSet<ApportionmentsModel> Apportionments { get; set; }
-    public DbSet<BondTypesModel> BondTypes { get; set; }
-    public DbSet<ClientsModel> Clients { get; set; }
-    public DbSet<CollaboratorsModel> Collaborators { get; set; }
-    public DbSet<DepartmentsModel> Departments { get; set; }
-    public DbSet<IndicatorsModel> Indicators { get; set; }
-    public DbSet<IndicatorTypesModel> IndicatorTypes { get; set; }
-    public DbSet<ProjectCollaborators> ProjectCollaborators { get; set; }
-    public DbSet<ProjectIndicatorsModel> ProjectIndicators { get; set; }
-    public DbSet<ProjectsModel> Projects { get; set; }
-    public DbSet<UsersModel> Users { get; set; }
+    public DbSet<RateiosModel> Rateios { get; set; }
+    public DbSet<TipoVinculoModel> TipoVinculo { get; set; }
+    public DbSet<ClienteModel> Cliente { get; set; }
+    public DbSet<ColaboradoresModel> Colaboradores { get; set; }
+    public DbSet<DepartamentoModel> Departamentos { get; set; }
+    public DbSet<IndicadoresModel> Indicadores { get; set; }
+    public DbSet<TipoIndicadorModel> TipoIndicadores { get; set; }
+    public DbSet<ProjetoColaboradores> ProjetoColaboradores { get; set; }
+    public DbSet<IndicadoresProjetoModel> ProjetoIndicadores { get; set; }
+    public DbSet<ProjetoModel> Projetos { get; set; }
+    public DbSet<UsariosModel> Usuarios { get; set; }
+    public DbSet<CargoModel> Cargos { get; set; }
 }

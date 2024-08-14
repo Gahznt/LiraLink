@@ -1,10 +1,14 @@
 using LiraLink.DataContext;
 using LiraLink.Repositories.ClientRepository;
+using LiraLink.Repositories.DepartmentRepository;
 using LiraLink.Repositories.IndicatorsTypeRepository;
+using LiraLink.Repositories.PositionsRepository;
 using LiraLink.Repositories.UserRepository;
 using LiraLink.Services.AuthenticateService;
 using LiraLink.Services.ClientService;
+using LiraLink.Services.DepartmentService;
 using LiraLink.Services.IndicatorsTypeService;
+using LiraLink.Services.PositionService;
 using LiraLink.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -49,13 +53,17 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
-builder.Services.AddScoped<IClientService, ClientService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IClientRepository, ClientRepository>();
-builder.Services.AddScoped<IIndicatorsTypeRepository, IndicatorsTypeRepository>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<ITipoIndicadoresRepository, TipoIndicadoresRepository>();
 builder.Services.AddScoped<IIndicatorsTypeService, IndicatorsTypeService>();
+builder.Services.AddScoped<ICargoRepository, CargoRepository>();
+builder.Services.AddScoped<ICargoService, CargoService>();
+builder.Services.AddScoped<IDepartmentoRepository, DepartmentoRepository>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -96,7 +104,6 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
