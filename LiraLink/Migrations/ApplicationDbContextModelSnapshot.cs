@@ -166,11 +166,20 @@ namespace LiraLink.Migrations
                     b.Property<int>("colaborador_id")
                         .HasColumnType("int");
 
+                    b.Property<string>("desempenho_deficiente")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("estado_participacao")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("fichas_advertencia")
+                        .HasColumnType("int");
+
                     b.Property<int>("performance")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("processo_disciplinar")
                         .HasColumnType("int");
 
                     b.Property<int>("projeto_id")
@@ -191,7 +200,7 @@ namespace LiraLink.Migrations
                     b.ToTable("ProjetoColaboradores");
                 });
 
-            modelBuilder.Entity("LiraLink.Models.ProjetoModel", b =>
+            modelBuilder.Entity("LiraLink.Models.ProjetoDepartamentosModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -199,11 +208,34 @@ namespace LiraLink.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int>("ClienteId")
+                    b.Property<int>("departamento_id")
                         .HasColumnType("int");
 
-                    b.Property<int>("Usuariosid")
+                    b.Property<float>("distribuicao_valor_participacao")
+                        .HasColumnType("real");
+
+                    b.Property<float>("distribuicao_valor_premio")
+                        .HasColumnType("real");
+
+                    b.Property<int>("projeto_id")
                         .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("departamento_id");
+
+                    b.HasIndex("projeto_id");
+
+                    b.ToTable("ProjetoDepartamentos");
+                });
+
+            modelBuilder.Entity("LiraLink.Models.ProjetoModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<int>("cliente_id")
                         .HasColumnType("int");
@@ -241,7 +273,6 @@ namespace LiraLink.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("updated_at")
@@ -253,9 +284,7 @@ namespace LiraLink.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("ClienteId");
-
-                    b.HasIndex("Usuariosid");
+                    b.HasIndex("cliente_id");
 
                     b.ToTable("Projetos");
                 });
@@ -436,21 +465,32 @@ namespace LiraLink.Migrations
                     b.Navigation("Projeto");
                 });
 
+            modelBuilder.Entity("LiraLink.Models.ProjetoDepartamentosModel", b =>
+                {
+                    b.HasOne("LiraLink.Models.DepartamentoModel", "departamento")
+                        .WithMany()
+                        .HasForeignKey("departamento_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LiraLink.Models.ProjetoModel", "projeto")
+                        .WithMany()
+                        .HasForeignKey("projeto_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("departamento");
+
+                    b.Navigation("projeto");
+                });
+
             modelBuilder.Entity("LiraLink.Models.ProjetoModel", b =>
                 {
                     b.HasOne("LiraLink.Models.ClienteModel", "cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId")
+                        .HasForeignKey("cliente_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LiraLink.Models.UsariosModel", "Usuarios")
-                        .WithMany()
-                        .HasForeignKey("Usuariosid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuarios");
 
                     b.Navigation("cliente");
                 });

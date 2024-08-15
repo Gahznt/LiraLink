@@ -22,6 +22,9 @@ public class MappingProfile : Profile
             CreateMap<PositionDto, CargoModel>();
             CreateMap<DepartamentoDto, DepartamentoModel>();
             CreateMap<DepartamentoModel, DepartamentoDto>();
+            CreateMap<ProjetoModel, ProjetoDto>();
+            CreateMap<ProjetoDto, ProjetoModel>();
+
         }
     }
 }

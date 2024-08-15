@@ -87,6 +87,7 @@ namespace LiraLink.Migrations
                     cargo_id = table.Column<int>(type: "int", nullable: false),
                     senha = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     salt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    perfil = table.Column<int>(type: "int", nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime2", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -97,6 +98,38 @@ namespace LiraLink.Migrations
                         name: "FK_Usuarios_Cargos_cargo_id",
                         column: x => x.cargo_id,
                         principalTable: "Cargos",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Projetos",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    cliente_id = table.Column<int>(type: "int", nullable: false),
+                    porcentagem_aplicavel_valor_remunerado = table.Column<float>(type: "real", nullable: false),
+                    porcentagem_aplicavel_participacao = table.Column<float>(type: "real", nullable: false),
+                    porcentagem_aplicavel_premio = table.Column<float>(type: "real", nullable: false),
+                    porcentagem_desempenho_deficiente = table.Column<float>(type: "real", nullable: false),
+                    porcentagem_processo_disciplinar = table.Column<float>(type: "real", nullable: false),
+                    porcentagem_ficha_advertencia = table.Column<float>(type: "real", nullable: false),
+                    valor_obra = table.Column<float>(type: "real", nullable: false),
+                    numero_fatura = table.Column<float>(type: "real", nullable: false),
+                    criado_por = table.Column<int>(type: "int", nullable: false),
+                    status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    created_at = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Projetos", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Projetos_Cliente_cliente_id",
+                        column: x => x.cliente_id,
+                        principalTable: "Cliente",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -151,69 +184,27 @@ namespace LiraLink.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Projetos",
+                name: "ProjetoDepartamentos",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    cliente_id = table.Column<int>(type: "int", nullable: false),
-                    ClienteId = table.Column<int>(type: "int", nullable: false),
-                    porcentagem_aplicavel_valor_remunerado = table.Column<float>(type: "real", nullable: false),
-                    porcentagem_aplicavel_participacao = table.Column<float>(type: "real", nullable: false),
-                    porcentagem_aplicavel_premio = table.Column<float>(type: "real", nullable: false),
-                    porcentagem_desempenho_deficiente = table.Column<float>(type: "real", nullable: false),
-                    porcentagem_processo_disciplinar = table.Column<float>(type: "real", nullable: false),
-                    porcentagem_ficha_advertencia = table.Column<float>(type: "real", nullable: false),
-                    valor_obra = table.Column<float>(type: "real", nullable: false),
-                    numero_fatura = table.Column<float>(type: "real", nullable: false),
-                    criado_por = table.Column<int>(type: "int", nullable: false),
-                    status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Usuariosid = table.Column<int>(type: "int", nullable: false),
-                    created_at = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    updated_at = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Projetos", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_Projetos_Cliente_ClienteId",
-                        column: x => x.ClienteId,
-                        principalTable: "Cliente",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Projetos_Usuarios_Usuariosid",
-                        column: x => x.Usuariosid,
-                        principalTable: "Usuarios",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProjetoColaboradores",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    colaborador_id = table.Column<int>(type: "int", nullable: false),
                     projeto_id = table.Column<int>(type: "int", nullable: false),
-                    estado_participacao = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    performance = table.Column<int>(type: "int", nullable: false),
-                    quantidade_processos_disciplinar = table.Column<int>(type: "int", nullable: false),
-                    quantidade_ficha_advertencia = table.Column<int>(type: "int", nullable: false)
+                    departamento_id = table.Column<int>(type: "int", nullable: false),
+                    distribuicao_valor_participacao = table.Column<float>(type: "real", nullable: false),
+                    distribuicao_valor_premio = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjetoColaboradores", x => x.id);
+                    table.PrimaryKey("PK_ProjetoDepartamentos", x => x.id);
                     table.ForeignKey(
-                        name: "FK_ProjetoColaboradores_Colaboradores_colaborador_id",
-                        column: x => x.colaborador_id,
-                        principalTable: "Colaboradores",
+                        name: "FK_ProjetoDepartamentos_Departamentos_departamento_id",
+                        column: x => x.departamento_id,
+                        principalTable: "Departamentos",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProjetoColaboradores_Projetos_projeto_id",
+                        name: "FK_ProjetoDepartamentos_Projetos_projeto_id",
                         column: x => x.projeto_id,
                         principalTable: "Projetos",
                         principalColumn: "id",
@@ -281,6 +272,39 @@ namespace LiraLink.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ProjetoColaboradores",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    colaborador_id = table.Column<int>(type: "int", nullable: false),
+                    projeto_id = table.Column<int>(type: "int", nullable: false),
+                    estado_participacao = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    performance = table.Column<int>(type: "int", nullable: false),
+                    quantidade_processos_disciplinar = table.Column<int>(type: "int", nullable: false),
+                    quantidade_ficha_advertencia = table.Column<int>(type: "int", nullable: false),
+                    desempenho_deficiente = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    processo_disciplinar = table.Column<int>(type: "int", nullable: true),
+                    fichas_advertencia = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjetoColaboradores", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_ProjetoColaboradores_Colaboradores_colaborador_id",
+                        column: x => x.colaborador_id,
+                        principalTable: "Colaboradores",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProjetoColaboradores_Projetos_projeto_id",
+                        column: x => x.projeto_id,
+                        principalTable: "Projetos",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Colaboradores_departamento_id",
                 table: "Colaboradores",
@@ -307,6 +331,16 @@ namespace LiraLink.Migrations
                 column: "projeto_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProjetoDepartamentos_departamento_id",
+                table: "ProjetoDepartamentos",
+                column: "departamento_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjetoDepartamentos_projeto_id",
+                table: "ProjetoDepartamentos",
+                column: "projeto_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProjetoIndicadores_indicador_id",
                 table: "ProjetoIndicadores",
                 column: "indicador_id");
@@ -317,14 +351,9 @@ namespace LiraLink.Migrations
                 column: "projeto_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projetos_ClienteId",
+                name: "IX_Projetos_cliente_id",
                 table: "Projetos",
-                column: "ClienteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Projetos_Usuariosid",
-                table: "Projetos",
-                column: "Usuariosid");
+                column: "cliente_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rateios_departamento_id",
@@ -354,10 +383,16 @@ namespace LiraLink.Migrations
                 name: "ProjetoColaboradores");
 
             migrationBuilder.DropTable(
+                name: "ProjetoDepartamentos");
+
+            migrationBuilder.DropTable(
                 name: "ProjetoIndicadores");
 
             migrationBuilder.DropTable(
                 name: "Rateios");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "Colaboradores");
@@ -367,6 +402,9 @@ namespace LiraLink.Migrations
 
             migrationBuilder.DropTable(
                 name: "Projetos");
+
+            migrationBuilder.DropTable(
+                name: "Cargos");
 
             migrationBuilder.DropTable(
                 name: "Departamentos");
@@ -379,12 +417,6 @@ namespace LiraLink.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cliente");
-
-            migrationBuilder.DropTable(
-                name: "Usuarios");
-
-            migrationBuilder.DropTable(
-                name: "Cargos");
         }
     }
 }

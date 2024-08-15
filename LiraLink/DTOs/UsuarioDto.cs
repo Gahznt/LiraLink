@@ -13,6 +13,7 @@ public class UsuarioDto
 
     [Required(ErrorMessage = "Email is required")]
     [MaxLength(100, ErrorMessage = "The email cannot be longer than 100 characters")]
+    [EmailAddress(ErrorMessage = "Invalid email format")]
     public string email { get; set; }
 
     [Required(ErrorMessage = "Senha is required")]
@@ -25,5 +26,6 @@ public class UsuarioDto
     public int? cargo_id { get; set; }
 
     [Required(ErrorMessage = "perfil is required")]
+    [EnumDataType(typeof(PerfilEnum), ErrorMessage = "Invalid value for perfil.")]
     public PerfilEnum perfil { get; set; } = PerfilEnum.Colaborador;
 }

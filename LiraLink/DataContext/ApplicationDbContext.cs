@@ -22,4 +22,5 @@ public class ApplicationDbContext : DbContext
     public DbSet<ProjetoModel> Projetos { get; set; }
     public DbSet<UsariosModel> Usuarios { get; set; }
     public DbSet<CargoModel> Cargos { get; set; }
+    public DbSet<ProjetoDepartamentosModel> ProjetoDepartamentos { get; set; }
 }

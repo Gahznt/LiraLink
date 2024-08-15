@@ -1,6 +1,6 @@
 ﻿namespace LiraLink.Services.IndicatorsTypeService
 {
-    public interface IIndicatorsTypeService
+    public class TipoIndicadorService : ITipoIndicadorService
     {
     }
 }

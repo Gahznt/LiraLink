@@ -7,10 +7,10 @@ namespace LiraLink.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class IndicatorsTypeController : ControllerBase
+    public class TipoIndicadorController : ControllerBase
     {
-        private readonly IIndicatorsTypeService _service;
-        public IndicatorsTypeController(IIndicatorsTypeService service)
+        private readonly ITipoIndicadorService _service;
+        public TipoIndicadorController(ITipoIndicadorService service)
         {
             _service = service;
         }
@@ -18,8 +18,6 @@ namespace LiraLink.Controllers
         public async Task<ActionResult<UserToken>> Criar(TipoIndicadoreseDto ITypeDto)
         {
             return Ok();
-            //var service = await _service.Create(ITypeDto);
-            //return StatusCode(service.StatusCode, service);
         }
     }
 }

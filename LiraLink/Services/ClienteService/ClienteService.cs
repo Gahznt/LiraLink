@@ -30,7 +30,7 @@ public class ClienteService : IClienteService
 
         var client = await _clientRepository.CriaCliente(clientDto);
 
-        serviceResponse.Message = "Customer successfully registered";
+        serviceResponse.Message = "Client successfully registered";
         serviceResponse.Data = client;
         serviceResponse.StatusCode = 201;
 

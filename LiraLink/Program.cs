@@ -3,12 +3,14 @@ using LiraLink.Repositories.ClientRepository;
 using LiraLink.Repositories.DepartmentRepository;
 using LiraLink.Repositories.IndicatorsTypeRepository;
 using LiraLink.Repositories.PositionsRepository;
+using LiraLink.Repositories.ProjetoRepository;
 using LiraLink.Repositories.UserRepository;
 using LiraLink.Services.AuthenticateService;
 using LiraLink.Services.ClientService;
 using LiraLink.Services.DepartmentService;
 using LiraLink.Services.IndicatorsTypeService;
 using LiraLink.Services.PositionService;
+using LiraLink.Services.ProjetoService;
 using LiraLink.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -59,11 +61,13 @@ builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<ITipoIndicadoresRepository, TipoIndicadoresRepository>();
-builder.Services.AddScoped<IIndicatorsTypeService, IndicatorsTypeService>();
+builder.Services.AddScoped<ITipoIndicadorService, TipoIndicadorService>();
 builder.Services.AddScoped<ICargoRepository, CargoRepository>();
 builder.Services.AddScoped<ICargoService, CargoService>();
 builder.Services.AddScoped<IDepartmentoRepository, DepartmentoRepository>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IProjetoRepository, ProjetoRepository>();
+builder.Services.AddScoped<IProjetoService, ProjetoService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

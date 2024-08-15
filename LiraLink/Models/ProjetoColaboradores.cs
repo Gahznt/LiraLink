@@ -17,4 +17,7 @@ public class ProjetoColaboradores
     public int performance { get; set; }
     public int quantidade_processos_disciplinar { get; set; }
     public int quantidade_ficha_advertencia { get; set; }
+    public string? desempenho_deficiente { get; set; }
+    public int? processo_disciplinar { get; set; }
+    public int? fichas_advertencia { get; set; }
 }
