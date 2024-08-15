@@ -2,7 +2,6 @@
 using LiraLink.Services.ProjetoService;
 using LiraLink.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LiraLink.Controllers
