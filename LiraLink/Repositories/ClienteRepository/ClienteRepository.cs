@@ -43,6 +43,8 @@ public class ClienteRepository : IClienteRepository
     public async Task<ClienteModel> AtualizaCliente(ClienteModel cliente, ClienteDto data)
     {
         cliente.nome = data.nome;
+        cliente.email = data.email;
+        cliente.telefone = data.telefone;
         _context.Cliente.Update(cliente);
         await _context.SaveChangesAsync();
         return cliente;
