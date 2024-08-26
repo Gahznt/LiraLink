@@ -4,7 +4,6 @@ using LiraLink.Services.AuthenticateService;
 using LiraLink.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LiraLink.Controllers
 {

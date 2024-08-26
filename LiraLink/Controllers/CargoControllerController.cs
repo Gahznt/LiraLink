@@ -1,5 +1,4 @@
 ﻿using LiraLink.DTOs;
-using LiraLink.Services.DepartmentService;
 using LiraLink.Services.PositionService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,40 +8,40 @@ namespace LiraLink.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class DepartmentController : ControllerBase
+    public class CargoControllerController : ControllerBase
     {
-        private IDepartmentService _service;
-        public DepartmentController(IDepartmentService departmentService)
+        private ICargoService _positionService;
+        public CargoControllerController(ICargoService positionService)
         {
-            _service = departmentService;
+            _positionService = positionService;
         }
 
         [HttpPost]
-        public async Task<ActionResult> Criar(DepartamentoDto department)
+        public async Task<ActionResult> Criar(PositionDto position)
         {
-            var service = await _service.CriaAsync(department);
+            var service = await _positionService.CriaAsync(position);
             return StatusCode(service.StatusCode, service);
         }
 
         [HttpGet]
         public async Task<ActionResult> Listar()
         {
-            var service = await _service.ListaAsync();
+            var service = await _positionService.ListaAsync();
             return StatusCode(service.StatusCode, service);
         }
 
         [HttpGet("{id?}")]
         public async Task<ActionResult> Buscar([FromRoute] int id)
         {
-            var service = await _service.BuscaPorIdAsync(id);
+            var service = await _positionService.BuscaPorIdAsync(id);
             return StatusCode(service.StatusCode, service);
         }
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<ActionResult> Atualizar(DepartamentoDto department, [FromRoute] int id)
+        public async Task<ActionResult> Atualizar(PositionDto position, [FromRoute] int id)
         {
-            var service = await _service.AtualizaAsync(id, department);
+            var service = await _positionService.AtualizaAsync(id, position);
             return StatusCode(service.StatusCode, service);
         }
     }

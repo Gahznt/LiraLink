@@ -22,10 +22,6 @@ public class ProjetoModel
     public int criado_por { get; set; }
     [ForeignKey("criado_por")]
     public string? status { get; set; }
-
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public DateTime created_at { get; set; }
-
-    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-    public DateTime updated_at { get; set; }
+    public DateTime created_at { get; set; } = DateTime.UtcNow;
+    public DateTime updated_at { get; set; } = DateTime.UtcNow;
 }

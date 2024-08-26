@@ -22,6 +22,8 @@ public class ProjetoService : IProjetoService
         ServiceResponse<ProjetoModel> serviceResponse = new ServiceResponse<ProjetoModel>();
         var projeto = _mapper.Map<ProjetoModel>(projetoDto);
         projeto.criado_por = userId;
+        projeto.updated_at = DateTime.UtcNow;
+        projeto.created_at = DateTime.UtcNow;
 
         var clienteExiste = await _clienteService.BuscaCliente(projeto.cliente_id);
         if(clienteExiste.StatusCode == 404)

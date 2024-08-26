@@ -36,11 +36,11 @@ public class ProjetoRepository : IProjetoRepository
         return cliente;
     }
 
-    public async Task<ProjetoModel> CriarAsync(ProjetoModel project)
+    public async Task<ProjetoModel> CriarAsync(ProjetoModel projeto)
     {
-        _context.Projetos.Add(project);
+        _context.Projetos.Add(projeto);
         await _context.SaveChangesAsync();
-        return project;
+        return projeto;
     }
 
     public async Task<List<ProjetoModel>?> ListarAsync()
