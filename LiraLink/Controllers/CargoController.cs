@@ -8,10 +8,10 @@ namespace LiraLink.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class CargoControllerController : ControllerBase
+    public class CargoController : ControllerBase
     {
         private ICargoService _positionService;
-        public CargoControllerController(ICargoService positionService)
+        public CargoController(ICargoService positionService)
         {
             _positionService = positionService;
         }
