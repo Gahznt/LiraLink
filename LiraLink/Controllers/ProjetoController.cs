@@ -39,12 +39,7 @@ namespace LiraLink.Controllers
         [HttpPost("departamento/colaborador")]
         public async Task<ActionResult> AdicionarColaboradorDepartamento(ProjetoDto client)
         {
-            var id = int.Parse(User.FindFirst("id").Value);
-            var usuarioId = await _usuarioService.BuscaPorIdAsync(id);
-
-            var service = await _service.Criar(client, usuarioId.id);
-
-            return StatusCode(service.StatusCode, service);
+            throw new NotImplementedException();
         }
     }
 }
